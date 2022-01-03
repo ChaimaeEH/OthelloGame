@@ -1,1 +1,2 @@
-# OthelloGame
+# Projet Othello 
+
