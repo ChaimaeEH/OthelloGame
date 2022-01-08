@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on .....
+Created on 10/01/2022
 
-@author: Chaimae ..., Kexin LI, Pauline ....
+@author: Chaimae EL HOUJJAJI, Kexin LI, Pauline TURK
 """
 
 
@@ -21,7 +21,7 @@ from class00 import MonteCarloTreeSearchNode
 from fonctions00 import drawBoard, resetBoard, isOnBoard, getBoardCopy, \
     enterPlayerTile, getPlayerMove, \
     getHintsBoard, showPoints, getScoreOfBoard, \
-    is_game_over, get_legal_actions, isValidMove, move, flipTiles, \
+    is_game_over, get_legal_actions, isValidMove, flipTiles, \
     playAgain
 
 
@@ -30,23 +30,19 @@ from fonctions00 import drawBoard, resetBoard, isOnBoard, getBoardCopy, \
 #-------------------------
 
 
-def main():
-    # global showHints
+def main(simulation_no, c_param):                      
     print("===============")
-    print("  Bienvenue !")
+    print("  Welcome !")
     print('===============')
     while True:
         initial_state = resetBoard()
         playerTile, computerTile, turn = enterPlayerTile()
         showHints = False
-        # print('turn= ', turn)
-        # initialiserGame()
-        # current_state = MonteCarloTreeSearchNode(state=initial_state)
+
         current_state = initial_state
         while not is_game_over(current_state):
             if turn == 'player':
-                print('A player jouer')
-                # current_state.tile = playerTile
+                print('It\'s your turn')
 
                 # dessiner le board et les points
                 if showHints:
@@ -56,7 +52,7 @@ def main():
                     drawBoard(current_state)
                 showPoints(current_state, playerTile, computerTile)
 
-                # demander l<action
+                # demander l'action
                 res = getPlayerMove(current_state, playerTile, showHints) # rerurn [x, y] saisi, avec showHints
                 action = res[0]
                 showHints =res[1]
@@ -69,25 +65,15 @@ def main():
                     turn = 'computer'
 
             else:
-                print('A computer jouer')
-                # current_state.tile = computerTile
-                # selected_node = current_state.best_action()
-                # drawBoard(current_state)
-                # showPoints(current_state, playerTile, computerTile)
-                # input('Press Enter to see the computer\'s move.')
+                print('It\'s the computer\'s turn')
                 root = MonteCarloTreeSearchNode(state=current_state, tile=computerTile)
-                selected_node = root.best_action()
+                selected_node = root.best_action(simulation_no, c_param)                                            
                 current_state = getBoardCopy(selected_node.state)
-                # best_child = current_state.best_action()
-                # action = move(current_state.state, tour_joueur, playerTile)
                 if get_legal_actions(current_state, playerTile) != []:
                     turn = 'player'
 
-        """
-        Display the final score
-        """
         print("===============")
-        print("Resultat")
+        print("Result")
         print('===============')
         drawBoard(current_state)
         showPoints(current_state, playerTile, computerTile)
@@ -96,7 +82,8 @@ def main():
             break
 
 #-------------------------
-# commencer jouer
+# Jouer une partie
 #-------------------------
-
-main()
+simulation_no = 10
+c_param = 0.5
+main(simulation_no, c_param)
