@@ -18,10 +18,10 @@ from class00 import MonteCarloTreeSearchNode
 # -------------------------
 # import fonctions
 # -------------------------
-from fonctions00 import drawBoard, resetBoard, isOnBoard, getBoardCopy, \
+from fonctions00 import drawBoard, resetBoard, getBoardCopy, \
     enterPlayerTile, getPlayerMove, \
-    getHintsBoard, showPoints, getScoreOfBoard, \
-    is_game_over, get_legal_actions, isValidMove, flipTiles, \
+    getHintsBoard, showPoints, \
+    is_game_over, get_legal_actions, flipTiles, \
     playAgain
 
 
