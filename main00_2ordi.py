@@ -19,10 +19,8 @@ import numpy as np
 # -------------------------
 
 from fonctions00 import drawBoard, resetBoard, getBoardCopy, \
-    enterPlayerTile, getPlayerMove, \
-    getHintsBoard, showPoints, \
-    is_game_over, get_legal_actions,flipTiles, \
-    playAgain, showPoints_2ordi, getScoreOfBoard
+    is_game_over, get_legal_actions, \
+    showPoints_2ordi, getScoreOfBoard
 
 
 #-------------------------------------
