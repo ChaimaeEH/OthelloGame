@@ -1,25 +1,11 @@
-# -------------------------
-# import class
-# -------------------------
-
-from class00 import MonteCarloTreeSearchNode
-
-
 
 # -------------------------
 # import fonctions
 # -------------------------
-from fonctions00 import drawBoard, resetBoard, getBoardCopy, \
-    is_game_over, get_legal_actions, \
-    showPoints_2ordi, getScoreOfBoard
-
 from main00_2ordi import une_partie
 
 import numpy as np
 import matplotlib.pyplot as plt
-
-
-
 
 
 def jouer_avec_simulation_1_enregistrer(nb_partie,
