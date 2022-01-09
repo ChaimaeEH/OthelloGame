@@ -13,6 +13,8 @@ from fonctions00 import drawBoard, resetBoard, getBoardCopy, \
     is_game_over, get_legal_actions, \
     showPoints_2ordi, getScoreOfBoard
 
+from main00_2ordi import une_partie
+
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -52,34 +54,6 @@ def jouer_avec_simulation_1_enregistrer(nb_partie,
         c_param1_min (float, optional): [description]. paramètre d'exploration minimpal pour l'ordinateur 1. Defaults to 0.
         c_param1_pas (float, optional): pas d'incrémentation paramètre d'exploration pour l'ordinateur 1. Defaults to 0.5.
     """  
-    
-    def jouer_simulation1(simulation_no1,c_param1):
-        turn = 'X'                    # c'est 'X' qui joue le premier coup
-        initial_state = resetBoard()  # état initial du plateau avec les 2 premiers 'X' et 'O'
-        computer1Tile, computer2Tile = ['X', 'O']  
-        current_state = initial_state  # état de départ est l'état initial
-        while not is_game_over(current_state):  # tant que le jeu n'est pas fini
-            if turn == 'X':
-                root = MonteCarloTreeSearchNode(state=current_state, tile=computer1Tile)  
-                selected_node = root.best_action(simulation_no1, c_param1)
-                current_state = getBoardCopy(selected_node.state)
-
-                if get_legal_actions(current_state, computer2Tile) != []:
-                    turn = 'O'
-
-            else:
-                root = MonteCarloTreeSearchNode(state=current_state, tile=computer2Tile)
-                selected_node = root.best_action(simulation_no2, c_param2)
-                current_state = getBoardCopy(selected_node.state)
-
-                if get_legal_actions(current_state, computer1Tile) != []:
-                    turn = 'X'
-     
-        drawBoard(current_state)
-        showPoints_2ordi(current_state, computer1Tile, computer2Tile)
-        print(getScoreOfBoard(current_state))
-
-        return getScoreOfBoard(current_state)
 
     def jouer_simulation1_tracer():
         for c in np.arange(c_param1_min, c_param1, c_param1_pas):
@@ -90,7 +64,7 @@ def jouer_avec_simulation_1_enregistrer(nb_partie,
                 nb_gain_nul = 0
                 for i in range(nb_partie):
                     print('Plateau final pour la partie {}/{}'.format(i + 1, nb_partie))
-                    score = jouer_simulation1(s, c)
+                    score = une_partie(s,simulation_no2,c,c_param2)
                     if score['X'] > score['O']:
                         nb_gain_x += 1
                     elif score['O'] > score['X']:
@@ -110,7 +84,7 @@ def jouer_avec_simulation_1_enregistrer(nb_partie,
                              'size': 11})
         plt.grid()  
         plt.legend()
-        plt.savefig('fun06_1 simulation_gains_X ({} parties).png'.format(nb_partie), format='png', dpi=300)
+        plt.savefig('Simulation_gains_X ({} parties).png'.format(nb_partie), format='png', dpi=300)
         plt.close()
        
     jouer_simulation1_tracer()
