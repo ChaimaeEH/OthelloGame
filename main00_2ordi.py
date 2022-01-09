@@ -12,7 +12,6 @@ Created on 10/01/2022
 
 from class00 import MonteCarloTreeSearchNode
 import matplotlib.pyplot as plt
-import numpy as np
 
 # -------------------------
 # import fonctions
