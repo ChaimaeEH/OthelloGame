@@ -1,10 +1,6 @@
-# Projet Othello 
+# Projet Othello - AgroParisTech - 2020/2021
 
-Chaimae EL HOUJJAJI 
-
-Kexin LI 
-
-Pauline TURK
+**Chaimae EL HOUJJAJI** -- **Kexin LI** -- **Pauline TURK**
 
 Pour télécharger tout le répertoire, tapez la commande ci dessous :
 
