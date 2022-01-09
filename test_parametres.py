@@ -38,7 +38,7 @@ def jouer_avec_simulation_1_enregistrer(nb_partie,
        - L'ordinateur 1 joue toujours avec 'X'.
        
        
-       - L'odrinateur 2 a les memes possibilité que le 1, mais on choisi de lui donner des valeurs par défaut
+       - L'ordinateur 2 a les mêmes possibilités que le 1, mais on choisi de lui donner des valeurs par défaut
          pour évaluer le comportement de l'ordinateur 1 lorsqu'on fait varier ses paramètres.
          Ainsi pour l'ordinateur 2 on donne par défaut :
          - un nombre de simulations de 11
@@ -47,8 +47,8 @@ def jouer_avec_simulation_1_enregistrer(nb_partie,
 
     Args:
         nb_partie (int): nombre de parties jouées entre l'ordinateur 1 et 2 pour chaque couple de paramètres testés.
-        simulation_no1 (int): nombre de simulations avant chaque coup joué pour l'ordinateur 1
-        c_param1 (float): paramètre d'exploration pour l'ordinateur 1
+        simulation_no1 (int): nombre de simulations avant chaque coup joué pour l'ordinateur 1.
+        c_param1 (float): paramètre d'exploration pour l'ordinateur 1.
         
         simulation_no2 (int, optional): nombre de simulations avant chaque coup joué pour l'ordinateur 2. Defaults to 11.
         c_param2 (float, optional): paramètre d'exploration pour l'ordinateur 2. Defaults to 1.41.
