@@ -346,7 +346,7 @@ def getScoreOfBoard(board):
 
 def playAgain():
     """Récupère la réponse de l'utilisateur à la question s'il souhaite
-       faire une nouvelle partie ou pas.
+       rejouer une nouvelle partie ou pas.
     Returns:
         bool: True si sa réponse commence par un 'y' ou 'Y'
               False sinon
