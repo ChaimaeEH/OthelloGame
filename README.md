@@ -6,8 +6,7 @@ Kexin LI
 
 Pauline TURK
 
-##Étape 1 :
-Télécharger tout le répertoire, pour cela, tapez la commande ci dessous :
+Pour télécharger tout le répertoire, tapez la commande ci dessous :
 
 ```shell
 git clone git@github.com:anthony-moreau/hackaton-ACKP
