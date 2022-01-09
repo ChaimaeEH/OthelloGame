@@ -54,7 +54,7 @@ class MonteCarloTreeSearchNode(object):
         """ Calcul de la différence entre les victoires et les défaites.
 
         Returns:
-            int: différence entre les victoires et les défaites.
+            float: différence entre les victoires et les défaites.
         """
         wins = self._results[1]
         loses = self._results[-1]   
@@ -64,13 +64,13 @@ class MonteCarloTreeSearchNode(object):
     def n(self):
         """
         Returns:
-            int: nombre de visites du noeud considéré.
+            float: nombre de visites du noeud considéré.
         """
         return self._number_of_visits
     
 
     def expand(self):
-        """A cette étape, un noeud enfant possible est généré et est ajouté au tableau des enfants. 
+        """A cette étape, un nouveau noeud enfant possible est généré et est ajouté au tableau des enfants. 
             Il constitue un nouveau noeud du tree search. 
             Ce nouveau noeud est associé au tour de l'autre joueur.
 
@@ -79,7 +79,7 @@ class MonteCarloTreeSearchNode(object):
         """
         action = self._untried_actions.pop()  # .pop() enlève et renvoie le dernier élément de la liste
                                               # permet de ne générer qu'une seule fois chaque enfant
-                                              # du neoud actuel.
+                                              # du noeud actuel.
         next_state = self.getChildState(action, self.tile)
         if self.tile == 'X':
             child_tile = 'O'
@@ -96,7 +96,7 @@ class MonteCarloTreeSearchNode(object):
         """Change l'état du plateau de jeu selon l'action envisagée'.
 
         Args:
-            action (list): couple des coordonnées de la case à jouer.          !!!!!!!!!!!!! à confirmer/vérifier
+            action (list): couple des coordonnées de la case à jouer.          
             tile (str): vaut 'X' ou 'O' et définit à qui est le tour.
 
         Returns:
@@ -185,7 +185,7 @@ class MonteCarloTreeSearchNode(object):
         Args:
             result (int): résultat de la partie simulée dans la rollout
         """
-        self._number_of_visits += 1.     # ?????????????????? pourquoi avoir mis des float et pas des int ??????????????????????? (rq. perso à changer des docstrings)
+        self._number_of_visits += 1.     
         self._results[result] += 1.
         if self.parent:
             self.parent.backpropagate(result)
@@ -212,7 +212,7 @@ class MonteCarloTreeSearchNode(object):
             c_param (float):  paramètre d'exploration
 
         Returns:
-            list: enfant d'UCB max (???????????????????????s'il y en a plusieurs le premier dans la liste des enfants est pris ??????????????????????????????)
+            list: enfant d'UCB max
         """
         choices_weights = [(c.q() / c.n()) + c_param * np.sqrt((2 * np.log(self.n()) / c.n())) for c in self.children]
         return self.children[np.argmax(choices_weights)]
@@ -240,9 +240,9 @@ class MonteCarloTreeSearchNode(object):
 
     def best_action(self,simulation_no,c_param):
         """Permet de choisir la meilleure action i.e qui renvoie le nœud enfant correspondant au meilleur coup
-        possible. 
-        Les étapes d'expansion, de simulation et de rétropropagation sont réalisées par le code
-        ci-dessus.
+        possible connu. 
+        Les étapes d'expansion/selection, de simulation et de rétropropagation sont réalisées par le code
+        ci-dessus autant de fois que la valeur du paramètre simulation_no.
 
         Args:
             simulation_no (int): Nombre de fois où l'algorithme MCTS est appliqué au noeud considéré
