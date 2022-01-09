@@ -33,8 +33,8 @@ def une_partie(simulation_no1, simulation_no2, c_param1, c_param2):
     """Faire jouer 2 ordinateurs l'un contre l'autre
 
     Args:
-        simulation_no1 (int): nombre d'intérations de MCTS faite à chaque tour de l'ordinateur 1
-        simulation_no2 ([int]): nombre d'intérations de MCTS faite à chaque tour de l'ordinateur 2
+        simulation_no1 (int): nombre d'itérations de MCTS faite à chaque tour de l'ordinateur 1
+        simulation_no2 ([int]): nombre d'itérations de MCTS faite à chaque tour de l'ordinateur 2
         c_param1 (float): paramètre d'exploration de l'ordinateur 1
         c_param2 (float): paramètre d'exploration de l'ordinateur 2
 
@@ -53,10 +53,10 @@ def une_partie(simulation_no1, simulation_no2, c_param1, c_param2):
     while not is_game_over(current_state):               # Tant que la partie n'est pas finie
         if turn == 'X':                                                              # Si c'est le tour de l'ordinateur 1
             root = MonteCarloTreeSearchNode(state=current_state, tile=computer1Tile) # Générer son Tree search en sa configuration de jeu
-            selected_node = root.best_action(simulation_no1, c_param1)                # Itérer le MCTS selone les paramètres choisis pour l'ordinateur 1
+            selected_node = root.best_action(simulation_no1, c_param1)               # Itérer le MCTS selon les paramètres choisis pour l'ordinateur 1
                                                                                      # et choix du meilleur coup connu selon l'arbre développé
             current_state = getBoardCopy(selected_node.state)
-            if get_legal_actions(current_state, computer2Tile) != []:                # Si dans la nouvelle configuration de jeu l'ordinateur 2 peut jouer
+            if get_legal_actions(current_state, computer2Tile) != []:                # Si dans la nouvelle configuration du jeu l'ordinateur 2 peut jouer
                 turn = 'O'                                                           # c'est son tour de jouer
                 
         else:                                                                        # Meme logique si c'est le tour de l'ordinateur 2
@@ -79,8 +79,8 @@ def main(nb_partie, simulation_no1, simulation_no2, c_param1, c_param2):
 
     Args:
         nb_partie ([type]): [description]
-        simulation_no1 (int): nombre d'intérations de MCTS faite à chaque tour de l'ordinateur 1
-        simulation_no2 ([int]): nombre d'intérations de MCTS faite à chaque tour de l'ordinateur 2
+        simulation_no1 (int): nombre d'itérations de MCTS faite à chaque tour de l'ordinateur 1
+        simulation_no2 ([int]): nombre d'itérations de MCTS faite à chaque tour de l'ordinateur 2
         c_param1 (float): paramètre d'exploration de l'ordinateur 1
         c_param2 (float): paramètre d'exploration de l'ordinateur 2
     """
@@ -103,8 +103,9 @@ def main(nb_partie, simulation_no1, simulation_no2, c_param1, c_param2):
     plt.plot(list(range(1,nb_partie+1)),Y, label = 'Y', color = 'purple')
     plt.plot(list(range(1,nb_partie+1)),[0.5]*nb_partie, color = 'black') # la limite vers laquelle ça tend 
     plt.ylabel('Pourcentage de gain de parties')
-    plt.xlabel('Nombre de parties ')
-    plt.title('Evolution du pourcentage de victoires en fonction du nombre de parties')
+    plt.xlabel('Nombre de parties')
+    plt.suptitle('Evolution du pourcentage de victoires en fonction du nombre de parties')
+    plt.title('simulation_no_X ={}, simulation_no_Y={}, c_param_X={}, c_param_Y={}'.format(simulation_no1, simulation_no2, c_param1, c_param2))
     plt.grid() #ajouter une grille au graphique 
     plt.legend()
     plt.show()
