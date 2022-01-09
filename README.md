@@ -9,7 +9,7 @@ Pauline TURK
 Pour télécharger tout le répertoire, tapez la commande ci dessous :
 
 ```shell
-git clone git@github.com:ChaimaeEH/OthelloGame.git
+git clone git@github.com:ChaimaeEH/OthelloGame
 ```
 
 ou le bouton Download ZIP :  
