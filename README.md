@@ -13,7 +13,7 @@ git clone git@github.com:ChaimaeEH/OthelloGame
 ```
 
 ou le bouton Download ZIP :  
-![image](https://user-images.githubusercontent.com/90893697/143780706-44e62151-e6d6-4b14-ac81-d2612de44491.png)
+![Capture d’écran 2022-01-09 à 21 38 05](https://user-images.githubusercontent.com/90857148/148700253-c35e846e-2731-44cf-b569-50c86ef28701.png)
 
 Une fois le répertoire importé, en fonction de l’utilisation souhaité, différents lancements doivent être opérés :
 * Pour simuler un jeu ordinateur VS humain, il faudra executer le fichier **main00_humain_ordi.py**.
