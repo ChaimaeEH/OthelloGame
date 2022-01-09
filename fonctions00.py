@@ -53,7 +53,7 @@ def isOnBoard(x, y):
         existent sur le plateau de jeu.
 
     Args:
-        x (int): absicsse
+        x (int): abscisse
         y (int): ordonnée
 
     Returns:
@@ -89,7 +89,7 @@ def enterPlayerTile():
     """
     tile = ''
     while not (tile == 'X' or tile == 'O'):
-        print('Do you want to be X or O ? X go first')
+        print('Do you want to be X or O ? X goes first')
         tile = input().upper()
     if tile == 'X':
         turn = 'player'
@@ -106,7 +106,7 @@ def enterPlayerTile():
 
 def is_game_over(board):
     """ Conditions de fin de partie:
-        plus aucun joueur ne peux jouer
+        plus aucun joueur ne peut jouer
         (en particulier si toutes les cases du plateau de jeu sont occupées)
     Args:
         board (list): plateau de jeu actuel.
@@ -166,7 +166,7 @@ def isValidMove(board, tile, xstart, ystart):
     if board[xstart][ystart] != ' ' or not isOnBoard(xstart, ystart):
         return False
 
-    board[xstart][ystart] = tile  # temporarily set the tile on the board.
+    board[xstart][ystart] = tile  # placer temporairement la tuile sur le plateau.
 
     if tile == 'X':
         otherTile = 'O'
@@ -176,15 +176,15 @@ def isValidMove(board, tile, xstart, ystart):
     tilesToFlip = []
     for xdirection, ydirection in [[0, 1], [1, 1], [1, 0], [1, -1], [0, -1], [-1, -1], [-1, 0], [-1, 1]]:
         x, y = xstart, ystart
-        x += xdirection  # first step in the direction
-        y += ydirection  # first step in the direction
+        x += xdirection  # premier pas dans la direction
+        y += ydirection  # premier pas dans la direction
         if isOnBoard(x, y) and board[x][y] == otherTile:
             while isOnBoard(x, y) and board[x][y] == otherTile:
-            # There is a piece belonging to the other player next to our piece.
+            # Il y a une pièce appartenant à l'autre joueur à côté de notre pièce.
                 x += xdirection
                 y += ydirection
             if isOnBoard(x, y) and board[x][y] == tile:
-                # There are pieces to flip over. Go in the reverse direction until we reach the original space, noting all the tiles along the way.
+                # Il y a des pièces à renverser. Allez dans le sens inverse jusqu'à atteindre l'espace d'origine, en notant toutes les tuiles en cours de route.
                 while True:
                     x -= xdirection
                     y -= ydirection
@@ -192,8 +192,8 @@ def isValidMove(board, tile, xstart, ystart):
                         break
                     tilesToFlip.append([x, y])
 
-    board[xstart][ystart] = ' '  # restore the empty space
-    if len(tilesToFlip) == 0:    # If no tiles were flipped, this is not a valid move.
+    board[xstart][ystart] = ' '  # restaurer l'espace vide
+    if len(tilesToFlip) == 0:    # Si aucune tuile n'a été retournée, ce n'est pas un coup valide.
         return False
     return tilesToFlip
 
@@ -260,7 +260,7 @@ def getPlayerMove(board, playerTile, showHints):
 
 def flipTiles(board, tile, xstart, ystart):
     """Si un coup est validé, la case choisie devient du symbole du joueur qui vient de jouer.
-       Il en est de meme pour toutes les cases remportées
+       Il en est de même pour toutes les cases remportées
        Sinon la fonction renvoie false.
 
     Args:
@@ -270,7 +270,7 @@ def flipTiles(board, tile, xstart, ystart):
         ystart (int): ordonnée souhaitée
 
     Returns:
-        bool: False si un coup est invalides
+        bool: False si un coup est invalide
     """
     tilesToFlip = isValidMove(board, tile, xstart, ystart)
     if tilesToFlip == False:
@@ -282,7 +282,7 @@ def flipTiles(board, tile, xstart, ystart):
 
 def getHintsBoard(board, tile):
     """Indique par un point toutes les cases qui peuvent
-       etre jouées au joueur dont c'est le tour.
+       être jouées au joueur dont c'est le tour.
        
     Args:
         board (list): plateau de jeu actuel.
