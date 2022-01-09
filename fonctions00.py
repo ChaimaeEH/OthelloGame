@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on .....
+Created on 10/01/2022
 
-@author: Chaimae ..., Kexin LI, Pauline ....
+@author: Chaimae EL HOUJJAJI, Kexin LI, Pauline TURK
 """
+
 import sys
 
 #-------------------------
@@ -13,26 +14,27 @@ import sys
 
 
 def drawBoard(board):
-    """
-    This function prints out the board that it was passed. Returns None.
+    """Affiche le plateau de jeu dans son état actuel.
+
+    Args:
+        board (list): plateau de jeu actuel.
     """
     HLINE = '  +---+---+---+---+---+---+'
-    VLINE = '  |   |   |   |   |   |   |'
     print('    0   1   2   3   4   5')
     print(HLINE)
     for x in range(6):
-        # print(VLINE)
         print(x, end=' ')
         for y in range(6):
             print('| %s' % (board[x][y]), end=' ')
         print('|')
-        # print(VLINE)
         print(HLINE)
 
 
 def resetBoard():
-    """
-    Creates a brand new, blank board data structure.
+    """Réinitialisation du plateau de jeu.
+
+    Returns:
+        list: plateau de jeu réinitialisé.
     """
     board = []
     for i in range(6):
@@ -46,16 +48,30 @@ def resetBoard():
     return board
 
 
-
 def isOnBoard(x, y):
-    """
-    Returns True if the coordinates are located on the board.
+    """Teste si les coordonnées d'une position
+        existent sur le plateau de jeu.
+
+    Args:
+        x (int): absicsse
+        y (int): ordonnée
+
+    Returns:
+        bool: True si la position est sur le plateau de jeu
+              False sinon.
     """
     return x >= 0 and x <= 5 and y >= 0 and y <= 5
 
 
-
 def getBoardCopy(board):
+    """ Génère une copie du plateau de jeu actuel.
+
+    Args:
+        board (list): plateau de jeu actuel.
+
+    Returns:
+        list: copie du plateau de jeu actuel.
+    """
     dupeBoard = resetBoard()
     for x in range(6):
         for y in range(6):
@@ -64,6 +80,13 @@ def getBoardCopy(board):
 
 
 def enterPlayerTile():
+    """Dans le cas d'une partie jouée entre un humain et l'ordinateur,
+       permet à l'humain de choisir entre jouer avec 'X' et donc commencer
+       et jouer avec 'O' et donc jouer en second.
+
+    Returns:
+        list: [symbole de l'humain, symbole de l'ordinateur, joueur qui va commencer la partie]
+    """
     tile = ''
     while not (tile == 'X' or tile == 'O'):
         print('Do you want to be X or O ? X go first')
@@ -82,46 +105,34 @@ def enterPlayerTile():
 
 
 def is_game_over(board):
-    '''
-    C'est la condition de fin de partie et cela dépend de votre jeu. Retourne vrai ou faux
-    The game ends when a player either cannot make a move, or the board is completely full.
-    The player with the most tiles of their color wins.
-    '''
-    end = True  # the board is full
-    # for i in range(6):
-    #     for j in range(6):
-    #         if self.state[i][j] != ' ':  # si il y a au moins une case vide
-    #             end = False
+    """ Conditions de fin de partie:
+        plus aucun joueur ne peux jouer
+        (en particulier si toutes les cases du plateau de jeu sont occupées)
+    Args:
+        board (list): plateau de jeu actuel.
+
+    Returns:
+        bool: True si la partie est finie
+              False sinon.
+    """
+    end = True       # la partie est terminée
     if len(get_legal_actions(board, 'X')) != 0 or len(get_legal_actions(board, 'O')) != 0:
-        end = False
+        end = False  # sauf si au moins un des 2 joueurs peut encore jouer
     return end
 
 
-
-def is_game_over(board):
-    '''
-    C'est la condition de fin de partie et cela dépend de votre jeu. Retourne vrai ou faux
-    The game ends when a player either cannot make a move, or the board is completely full.
-    The player with the most tiles of their color wins.
-    '''
-    end = True  # the board is full
-    for i in range(6):
-        for j in range(6):
-            if board[i][j] != ' ':  # si il y a au moins une case vide，end = False
-                end = False
-    return len(get_legal_actions(board, 'X')) == 0 or end or len(get_legal_actions(board, 'O')) == 0
-
-
-
-
 def get_legal_actions(board, tile):
-    '''
-    Construit une liste de toutes les actions possibles à partir de l'état actuel. Retourne une liste.
-    '''
-    # if self.tour_joueur % 2 == 0:
-    #     tile = 'X'
-    # else:
-    #     tile = 'O'
+    """Construit une liste de toutes les actions possibles à partir de la configuration de
+    jeu actuelle pour le joueur dont c'est le tour.
+
+    Args:
+        board (list): plateau de jeu actuel.
+        tile (str): vaut 'X' ou 'O' et définit à qui est le tour.
+
+    Returns:
+        list: liste de toutes les actions possibles à partir de la configuration de
+              jeu actuelle pour le joueur dont c'est le tour.
+    """
     possible_positions = []
     for x in range(6):
         for y in range(6):
@@ -133,10 +144,24 @@ def get_legal_actions(board, tile):
 
 
 def isValidMove(board, tile, xstart, ystart):
-    """
-    Returns False if the player's move on space xstart, ystart is invalid.
-    If it is a valid move, returns a list of spaces that would become the player's if they made a move here.
+    """Interdit un coup invalide:
+       - qui n'est pas sur le plateau
+       - ou qui concerne une case déjà occupée
+       - ou qui ne va permettre de récupérer aucune case de l'adversaire
 
+       Et si le coup est valide, renvoie les cases qui seront récupérées
+       par le joueur à l'issue de ce coup.
+
+    Args:
+        board (list): plateau de jeu actuel.
+        tile (str): vaut 'X' ou 'O' et définit à qui est le tour.
+        xstart (int): abscisse souhaitée
+        ystart (int): ordonnée souhaitée
+
+    Returns:
+        bool: False si le mouvement est invalide
+        sinon
+        list: liste des positions gagnées si ce coup est joué
     """
     if board[xstart][ystart] != ' ' or not isOnBoard(xstart, ystart):
         return False
@@ -168,7 +193,7 @@ def isValidMove(board, tile, xstart, ystart):
                     tilesToFlip.append([x, y])
 
     board[xstart][ystart] = ' '  # restore the empty space
-    if len(tilesToFlip) == 0:  # If no tiles were flipped, this is not a valid move.
+    if len(tilesToFlip) == 0:    # If no tiles were flipped, this is not a valid move.
         return False
     return tilesToFlip
 
@@ -177,11 +202,32 @@ def isValidMove(board, tile, xstart, ystart):
 
 
 def getPlayerMove(board, playerTile, showHints):
-    # global showHints
+    """Dans le cas d'une partie jouée entre un humain et l'ordinateur,
+       permet de récupérer le coup demandé par l'humain.
+       Par exemple, s'il veut prendre la case de la ligne 4, colonne 2,
+       il devra enter: 42
+       ATTENTION: la numérotation des lignes et colonnes commence à 0.
+
+       D'autres options sont disponibles:
+       - quiter le jeu en entrant: quit
+       - demander à voir ses coups possibles en entrant: hints
+       - réafficher l'état du plateau de jeu en entrant: db
+
+    Args:
+        board (list): plateau de jeu actuel.
+        playerTile (str): vaut 'X' ou 'O' et correspond au symbole de l'humain.
+        showHints (bool): indique si les coups possibles doivent etre affichés ou non
+
+    Returns:
+        list: coup choisi par le joueur ou une des autres options possibles
+    """
     hintsBoard = getHintsBoard(board, playerTile)
     Digits1To6 = '0 1 2 3 4 5'.split()
     while True:
-        print('Enter your move, \n or (1) type quit to end the game, \n or (2) hints to turn off/on hints, \n or (3) db to draw the present board')
+        print('\nEnter your move (ex. for ligne 4, column 2, type: 42)\
+              \n- to end the game, type: quit\
+              \n- to turn off/on hints, type: hints\
+              \n- to draw the present board, type: db')
         move = input().lower()
         if move == 'quit':
             print('Thanks for playing!')
@@ -212,57 +258,39 @@ def getPlayerMove(board, playerTile, showHints):
     return [[x, y], showHints]
 
 
-def move(board, tour_joueur, tile):
-    '''
-    Change l'état de votre plateau avec une nouvelle valeur. Pour un jeu de Tic Tac Toe normal, il peut
-    s'agir d'un tableau 3 par 3 dont tous les éléments sont initialement à 0. 0 signifie que la position
-    du plateau est vide. Si vous placez x sur la rangée 2, colonne 3, alors ce sera quelque chose comme
-    plateau[2][3] = 1, où 1 représente ce x est placé.
-    Renvoie le nouvel état après avoir effectué un déplacement.
-    '''
-    if tour_joueur % 2 == 0:
-        print('tour_joueur == 0')
-
-        # print('Joueur X a joué et placé son pion à la ligne', action[1], ' et à la colonne ', action[0])
-    else:
-        print('tour_joueur == 1')
-        # tile = 'O'
-        # print('Joueur O a joué et placé son pion à la ligne', action[1], ' et à la colonne ', action[0])
-
-    # self.state = makeMove(self.state, tile, action[0], action[1])
-    # tour_joueur += 1
-    # drawBoard(self.states)
-    # print(self.game_result())
-    # return action
-
-
 def flipTiles(board, tile, xstart, ystart):
+    """Si un coup est validé, la case choisie devient du symbole du joueur qui vient de jouer.
+       Il en est de meme pour toutes les cases remportées
+       Sinon la fonction renvoie false.
+
+    Args:
+        board (list): plateau de jeu actuel.
+        tile (str): vaut 'X' ou 'O' et définit à qui est le tour.
+        xstart (int): abscisse souhaitée
+        ystart (int): ordonnée souhaitée
+
+    Returns:
+        bool: False si un coup est invalides
+    """
     tilesToFlip = isValidMove(board, tile, xstart, ystart)
     if tilesToFlip == False:
         return False
     board[xstart][ystart] = tile
     for x, y in tilesToFlip:
         board[x][y] = tile
-    # return True
-
-
-# def makeMove(board, tile, xstart, ystart):
-#     """
-#     Place the tile on the board at xstart, ystart, and flip any of the opponent's pieces.
-#     Returns False if this is an invalid move, True if it is valid.
-#     """
-#     tilesToFlip = isValidMove(board, tile, xstart, ystart)
-#     if tilesToFlip == False:
-#         return False
-#     board[xstart][ystart] = tile
-#     for x, y in tilesToFlip:
-#         board[x][y] = tile
-#     return board
-
-
 
 
 def getHintsBoard(board, tile):
+    """Indique par un point toutes les cases qui peuvent
+       etre jouées au joueur dont c'est le tour.
+       
+    Args:
+        board (list): plateau de jeu actuel.
+        tile (str): vaut 'X' ou 'O' et définit à qui est le tour.
+
+    Returns:
+        list: plateau avec des points dans les cases des coups valides
+    """
     dupeBoard = getBoardCopy(board)
 
     for x, y in get_legal_actions(dupeBoard, tile):
@@ -272,17 +300,38 @@ def getHintsBoard(board, tile):
 
 
 def showPoints(board, playerTile, computerTile):
+    """Affiche le score de l'humain et de l'ordinateur.
+
+    Args:
+        board (list): plateau de jeu actuel.
+        playerTile (str): vaut 'X' ou 'O' et correspond au symbole de l'humain.
+        computerTile (str): vaut 'X' ou 'O' et correspond au symbole de l'ordinateur.
+    """
     scores = getScoreOfBoard(board)
     print('You have %s points. The computer has %s points.' % (scores[playerTile], scores[computerTile]))
 
+
 def showPoints_2ordi(board, playerTile, computerTile):
+    """Affiche le score de chaque ordinateur.
+
+    Args:
+        board (list): plateau de jeu actuel.
+        playerTile (str): vaut 'X' ou 'O' et correspond au symbole du premier ordinateur.
+        computerTile (str): vaut 'X' ou 'O' et correspond au symbole du second ordinateur.
+    """
     scores = getScoreOfBoard(board)
-    print('Joueur %s have %s points. Joueur %s has %s points.' % (playerTile, scores[playerTile], computerTile, scores[computerTile]))
+    print('Computer %s has %s points. Computer %s has %s points.' % (playerTile, scores[playerTile], computerTile, scores[computerTile]))
 
 
 def getScoreOfBoard(board):
-    """
-    Determine the score by counting the tiles. Returns a dictionary with keys 'X' and 'O'.
+    """Calcul le score de chaque joueur en comptant le nombre de
+       cases occupées par chacun.
+
+    Args:
+        board ([type]): [description]
+
+    Returns:
+        dic: dictionnaire du score de chaque joueur avec pour clef: 'X' et 'O'
     """
     xscore = 0
     oscore = 0
@@ -296,24 +345,12 @@ def getScoreOfBoard(board):
 
 
 def playAgain():
+    """Récupère la réponse de l'utilisateur à la question s'il souhaite
+       rejouer une nouvelle partie ou pas.
+    Returns:
+        bool: True si sa réponse commence par un 'y' ou 'Y'
+              False sinon
+    """
     print('Do you want to play again? (yes or no)')
     return input().lower().startswith('y')
-
-
-def enterTileOrdre():
-    tile = ''
-    turn = 'player'
-    while not (tile == 'X' or tile == 'O'):
-        print('Do you want X or O go first ?')
-        tile = input().upper()
-    if tile == 'X':
-        # turn = 'player'
-        # print('Computer 1 : X, Computer 2 : O')
-        print('X go first')
-        return ['X', 'O', turn]
-    else:
-        # turn = 'computer'
-        # print('Computer 1 : O, CComputer 2 : X')
-        print('O go first')
-        return ['O', 'X', turn]
 
