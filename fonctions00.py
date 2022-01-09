@@ -253,7 +253,7 @@ def getPlayerMove(board, playerTile, showHints):
                 break
         else:
             print('That is not a valid move. Type the x digit (0-5), then the y digit (0-5).')
-            print('For example, 51 will be the top-right corner.')
+            print('For example, 05 will be the top-right corner.')
 
     return [[x, y], showHints]
 
