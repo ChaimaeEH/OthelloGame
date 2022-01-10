@@ -71,6 +71,8 @@ def main(simulation_no, c_param):
                 current_state = getBoardCopy(selected_node.state)
                 if get_legal_actions(current_state, playerTile) != []:
                     turn = 'player'
+                else:
+                    drawBoard(current_state)
         
         #afficher le résultat
         print("===============")
@@ -80,6 +82,7 @@ def main(simulation_no, c_param):
         showPoints(current_state, playerTile, computerTile)
 
         if not playAgain():
+            print('Thanks for playing!')
             break
 
 #-------------------------
