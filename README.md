@@ -1,4 +1,4 @@
-# Projet Othello - AgroParisTech - 2020/2021
+# Projet Othello - AgroParisTech - 2021/2022
 
 **Chaimae EL HOUJJAJI** -- **Kexin LI** -- **Pauline TURK**
 
