@@ -33,12 +33,12 @@ def jouer_avec_simulation_1_enregistrer(nb_partie,
         simulation_no1 (int): nombre de simulations avant chaque coup joué pour l'ordinateur 1.
         c_param1 (float): paramètre d'exploration pour l'ordinateur 1.
         
-        simulation_no2 (int, optional): nombre de simulations avant chaque coup joué pour l'ordinateur 2. Defaults to 11.
-        c_param2 (float, optional): paramètre d'exploration pour l'ordinateur 2. Defaults to 1.41.
-        simulation1_min (int, optional): nombre minimal de simulations avant chaque coup joué pour l'ordinateur 1. Defaults to 1.
-        simulation1_pas (int, optional): pas d'incrémentation du nombre de simulations pour l'ordinateur 1. Defaults to 10. 
-        c_param1_min (float, optional): [description]. paramètre d'exploration minimpal pour l'ordinateur 1. Defaults to 0.
-        c_param1_pas (float, optional): pas d'incrémentation paramètre d'exploration pour l'ordinateur 1. Defaults to 0.5.
+        simulation_no2 (int, optional): nombre de simulations avant chaque coup joué pour l'ordinateur 2. Par défaut à 11.
+        c_param2 (float, optional): paramètre d'exploration pour l'ordinateur 2. Par défaut à 1.41.
+        simulation1_min (int, optional): nombre minimal de simulations avant chaque coup joué pour l'ordinateur 1. Par défaut à 1.
+        simulation1_pas (int, optional): pas d'incrémentation du nombre de simulations pour l'ordinateur 1. 
+        c_param1_min (float, optional): paramètre d'exploration minimal pour l'ordinateur 1. Par défaut à 0.
+        c_param1_pas (float, optional): pas d'incrémentation paramètre d'exploration pour l'ordinateur 1.
     """  
 
     def jouer_simulation1_tracer():
@@ -80,7 +80,7 @@ def jouer_avec_simulation_1_enregistrer(nb_partie,
 
 
 '''
-Main Programm:
+Main Program:
 '''
 nb_partie = 100
 simulation_no1 = 101
