@@ -49,14 +49,14 @@ def une_partie(simulation_no1, simulation_no2, c_param1, c_param2):
     
     while not is_game_over(current_state):               # Tant que la partie n'est pas finie
         if turn == 'X':                                                              # Si c'est le tour de l'ordinateur 1
-            root = MonteCarloTreeSearchNode(state=current_state, tile=computer1Tile) # Générer son Tree search en sa configuration de jeu
+            root = MonteCarloTreeSearchNode(state=current_state, tile=computer1Tile) # Générer son Tree search en sa configuration de jeu actuelle
             selected_node = root.best_action(simulation_no1, c_param1)               # Itérer le MCTS selon les paramètres choisis pour l'ordinateur 1
                                                                                      # et choix du meilleur coup connu selon l'arbre développé
             current_state = getBoardCopy(selected_node.state)
             if get_legal_actions(current_state, computer2Tile) != []:                # Si dans la nouvelle configuration du jeu l'ordinateur 2 peut jouer
                 turn = 'O'                                                           # c'est son tour de jouer
                 
-        else:                                                                        # Meme logique si c'est le tour de l'ordinateur 2
+        else:                                                                        # Même logique si c'est le tour de l'ordinateur 2
             root = MonteCarloTreeSearchNode(state=current_state, tile=computer2Tile)
             selected_node = root.best_action(simulation_no2, c_param2)
             current_state = getBoardCopy(selected_node.state)
@@ -75,7 +75,7 @@ def main(nb_partie, simulation_no1, simulation_no2, c_param1, c_param2):
        du nombre de parties jouées.
 
     Args:
-        nb_partie ([type]): [description]
+        nb_partie ([type]): nombre de parties que l'on veut jouer 
         simulation_no1 (int): nombre d'itérations de MCTS faite à chaque tour de l'ordinateur 1
         simulation_no2 ([int]): nombre d'itérations de MCTS faite à chaque tour de l'ordinateur 2
         c_param1 (float): paramètre d'exploration de l'ordinateur 1
