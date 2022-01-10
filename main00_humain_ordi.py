@@ -44,7 +44,7 @@ def main(simulation_no, c_param):
             if turn == 'player':
                 print('It\'s your turn')
 
-                # dessiner le board et les points
+                # dessiner le plateau et les points
                 if showHints:
                     hintsBoard = getHintsBoard(current_state, playerTile)
                     drawBoard(hintsBoard)
@@ -52,8 +52,8 @@ def main(simulation_no, c_param):
                     drawBoard(current_state)
                 showPoints(current_state, playerTile, computerTile)
 
-                # demander l'action
-                res = getPlayerMove(current_state, playerTile, showHints) # rerurn [x, y] saisi, avec showHints
+                # demander l'action au joueur
+                res = getPlayerMove(current_state, playerTile, showHints) # return [x, y] saisi, avec showHints
                 action = res[0]
                 showHints =res[1]
 
@@ -71,7 +71,8 @@ def main(simulation_no, c_param):
                 current_state = getBoardCopy(selected_node.state)
                 if get_legal_actions(current_state, playerTile) != []:
                     turn = 'player'
-
+        
+        #afficher le résultat
         print("===============")
         print("Result")
         print('===============')
